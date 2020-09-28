@@ -1,9 +1,9 @@
 package com.example.newsapp
 
-import android.util.Log
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 
-class NewsViewModel: ViewModel(){
+class NewsViewModel(): ViewModel() {
+
     init{
 
     }
@@ -12,4 +12,12 @@ class NewsViewModel: ViewModel(){
         super.onCleared()
     }
 }
-
+//    private val _newsLatest=MutableLiveData<List<News>>()
+//    val newsLatest: LiveData<List<News>>
+//        get()=_newsLatest
+//
+//    fun getNews() {
+//        val news=newslist.getNews()
+//
+//    }
+//}
