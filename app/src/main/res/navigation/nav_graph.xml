@@ -13,6 +13,6 @@
     </fragment>
     <fragment
         android:id="@+id/newsInfoFragment2"
-        android:name="com.example.newsapp.NewsInfoFragment"
+        android:name="com.example.newsapp.NewsInfo.NewsInfoFragment"
         android:label="NewsInfoFragment" />
 </navigation>
