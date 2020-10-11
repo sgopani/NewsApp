@@ -5,7 +5,7 @@
     app:startDestination="@id/newsList2">
     <fragment
         android:id="@+id/newsList2"
-        android:name="com.example.newsapp.NewsList"
+        android:name="com.example.newsapp.newsList.NewsList"
         android:label="NewsList" >
         <action
             android:id="@+id/action_newsList2_to_newsInfoFragment2"
@@ -13,6 +13,6 @@
     </fragment>
     <fragment
         android:id="@+id/newsInfoFragment2"
-        android:name="com.example.newsapp.NewsInfo.NewsInfoFragment"
+        android:name="com.example.newsapp.newsInfo.NewsInfoFragment"
         android:label="NewsInfoFragment" />
 </navigation>

@@ -7,14 +7,14 @@
     <data>
         <variable
             name="newslist"
-            type="com.example.newsapp.NewsList"/>
+            type="com.example.newsapp.newsList.NewsList"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".NewsList">
+        tools:context=".newsList.NewsList">
 
         <Button
             android:id="@+id/next_button"
