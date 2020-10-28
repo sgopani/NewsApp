@@ -1,17 +1,17 @@
 package com.example.newsapp.newsNetwork
 
+import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
+@Parcelize
 data class NewsProperty (
- val status:String,
- val totalResults:Int,
- val articles:List<Articles>
-)
+    @SerializedName("status")
+    val status : String,
 
-data class Articles(
-    val author:String,
-    val title: String,
-    val description:String,
-    val articleUrl : String,
-    val imageUrl : String,
-    val publishedAt : String,
-    val content : String
-    )
+    @SerializedName("totalResults")
+    val totalResults : Long,
+
+    @SerializedName("articles")
+    val articles : List<Articles> = listOf()
+) : Parcelable
+

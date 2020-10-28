@@ -5,14 +5,23 @@
     app:startDestination="@id/newsList2">
     <fragment
         android:id="@+id/newsList2"
-        android:name="com.example.newsapp.newsList.NewsList"
-        android:label="NewsList" >
+        android:name="com.example.newsapp.newsList.NewsList">
         <action
             android:id="@+id/action_newsList2_to_newsInfoFragment2"
             app:destination="@id/newsInfoFragment2" />
+        <action
+            android:id="@+id/action_newsList2_to_newsFavFragment"
+            app:destination="@id/newsFavFragment" />
     </fragment>
     <fragment
         android:id="@+id/newsInfoFragment2"
-        android:name="com.example.newsapp.newsInfo.NewsInfoFragment"
-        android:label="NewsInfoFragment" />
+        android:name="com.example.newsapp.newsInfo.NewsInfoFragment">
+        <argument
+            android:name="articles"
+            app:argType="com.example.newsapp.newsNetwork.Articles" />
+    </fragment>
+    <fragment
+        android:id="@+id/newsFavFragment"
+        android:name="com.example.newsapp.newsFavorite.NewsFavFragment"
+        android:label="NewsFavFragment" />
 </navigation>

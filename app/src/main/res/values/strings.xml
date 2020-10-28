@@ -4,4 +4,16 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="news_image">Image</string>
     <string name="News_headline">News Healine</string>
+    <string name="news_description">News  Description</string>
+    <string name="news_info_image">News Info Image</string>
+    <string name="news_article_url">News_article_url</string>
+    <string name="read_more">Read more</string>
+    <string name="status_image">Status_Image</string>
+    <string name="news_favorites_action">News favorite</string>
+    <string name="favorite_menu">Favorite Menu</string>
+    <string name="news_favorite_list_image">News Fav list image</string>
+    <string name="news_favorite_image">news_favorite_image</string>
+    <string name="Favorite_description">news_Favorite _descriptiom</string>
+    <string name="news_favorite_title">News Favorite Title</string>
+    <string name="fav_image">Fav Image</string>
 </resources>
