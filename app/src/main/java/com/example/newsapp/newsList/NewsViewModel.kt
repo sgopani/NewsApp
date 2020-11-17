@@ -1,8 +1,10 @@
 package com.example.newsapp.newsList
 
 import android.util.Log
+import android.widget.ProgressBar
 import androidx.lifecycle.*
 import com.example.newsapp.NewsApiStatus
+import com.example.newsapp.R
 import com.example.newsapp.database.FavouriteNews
 import com.example.newsapp.database.NewsDatabaseDao
 import com.example.newsapp.newsNetwork.Articles
@@ -13,10 +15,6 @@ import kotlinx.coroutines.*
 class NewsViewModel(private val database: NewsDatabaseDao) : ViewModel() {
     private var viewModelJob=Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main )
-
-    //private val _response=MutableLiveData<String>()
-    //val response: LiveData<String>
-        //get()=_response
 
 
     private val _status = MutableLiveData<NewsApiStatus>()
@@ -46,12 +44,12 @@ class NewsViewModel(private val database: NewsDatabaseDao) : ViewModel() {
     fun eventNavigateToNewsDetailCompleted(){
         _selectedNews.value = null
     }
-
     init {
         _status.value = NewsApiStatus.LOADING
         getNews()
     }
         private fun getNews(){
+
             Log.i("getNews","Called")
             coroutineScope.launch {
                 val deferred=NewsApi.retrofitService.getHealines("in")
@@ -72,27 +70,11 @@ class NewsViewModel(private val database: NewsDatabaseDao) : ViewModel() {
         }
     fun addFavouriteNews(article: Articles){
         val favouriteNews = articleToFavouriteNews(article)
-
         coroutineScope.launch {
             withContext(Dispatchers.IO){
                 database.insert(favouriteNews)
             }
         }
-    }
-    fun favouriteNewsToArticle(favNews: FavouriteNews): Articles{
-
-        val article = Articles(
-            id = favNews.news_Id.toString(),
-            author = favNews.author,
-            title = favNews.title,
-            description = favNews.description,
-            content = favNews.content,
-            imageUrl = favNews.imageUrl,
-            articleUrl = favNews.articleUrl,
-            publishedAt = favNews.publishedAt,
-        )
-
-        return article
     }
     private fun articleToFavouriteNews(article: Articles): FavouriteNews {
         Log.i("articleToFavouriteNews","Called")
@@ -106,6 +88,13 @@ class NewsViewModel(private val database: NewsDatabaseDao) : ViewModel() {
             publishedAt =article.publishedAt!!
         )
 
+    }
+    fun deleteFavouriteNews(article: Articles) {
+        coroutineScope.launch {
+            withContext(Dispatchers.IO) {
+                database.delete(article.articleUrl!!)
+            }
+        }
     }
     override fun onCleared() {
         viewModelJob.cancel()

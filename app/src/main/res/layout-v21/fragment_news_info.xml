@@ -9,7 +9,7 @@
 
         <TextView
             android:id="@+id/news_info_title"
-            style="@android:style/TextAppearance.Material.Headline"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"

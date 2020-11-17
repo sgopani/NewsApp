@@ -16,4 +16,12 @@
     <string name="Favorite_description">news_Favorite _descriptiom</string>
     <string name="news_favorite_title">News Favorite Title</string>
     <string name="fav_image">Fav Image</string>
+    <string name="clear_all">Clear all</string>
+    <string name="retry_button">Retry</string>
+    <string name="home_navigation">Home</string>
+    <string name="search_dashboard">Search</string>
+    <string name="favorite_dashboard">Favorite</string>
+    <string name="US_dashboard">US</string>
+    <string name="search_check">Searched news not available</string>
+    <string name="search_view">Search Here</string>
 </resources>

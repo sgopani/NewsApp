@@ -34,14 +34,3 @@ data class Articles(
     var isSelected: Boolean=true,
 
     ) : Parcelable
-{
-    fun isIs_selected(): Boolean {
-        return is_selected
-    }
-
-    fun setIs_selected(selected: Boolean) {
-        this.is_selected=selected
-    }
-
-    var is_selected=true
-}

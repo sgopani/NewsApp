@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_newsList2_to_newsFavFragment"
             app:destination="@id/newsFavFragment" />
+        <action
+            android:id="@+id/action_newsList2_to_newsSearchFragment"
+            app:destination="@id/newsSearchFragment" />
     </fragment>
     <fragment
         android:id="@+id/newsInfoFragment2"
@@ -22,6 +25,17 @@
     </fragment>
     <fragment
         android:id="@+id/newsFavFragment"
-        android:name="com.example.newsapp.newsFavorite.NewsFavFragment"
-        android:label="NewsFavFragment" />
+        android:name="com.example.newsapp.newsFavorite.NewsFavFragment" >
+        <action
+            android:id="@+id/action_newsFavFragment_to_newsInfoFragment23"
+            app:destination="@id/newsInfoFragment2"
+            app:popUpTo="@id/newsList2" />
+    </fragment>
+    <fragment
+        android:id="@+id/newsSearchFragment"
+        android:name="com.example.newsapp.newsSearch.NewsSearchFragment" >
+        <action
+            android:id="@+id/action_newsSearchFragment_to_newsInfoFragment2"
+            app:destination="@id/newsInfoFragment2" />
+    </fragment>
 </navigation>

@@ -40,6 +40,7 @@ class NewsInfoFragment : Fragment() {
         val newsDescription=view.findViewById<TextView>(R.id.news_info_description)
         val newsUrl=view.findViewById<TextView>(R.id.news_article_url)
         newsUrl.isClickable
+
         viewModel.selectedNews.observe(viewLifecycleOwner, Observer {
             viewModel.getSetImage(newsImage)
            newsDescription.text = viewModel.newsDescription
