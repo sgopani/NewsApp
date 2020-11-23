@@ -13,7 +13,7 @@
         android:icon="@drawable/ic_baseline_favorite_24"
         android:title="@string/favorite_dashboard" />
     <item
-        android:id="@+id/navigation_favorite"
-        android:icon="@drawable/ic_baseline_article_24"
-        android:title="@string/US_dashboard" />
+        android:id="@+id/userProfile"
+        android:icon="@drawable/ic_baseline_person_24"
+        android:title="@string/Login" />
 </menu>

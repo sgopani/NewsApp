@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.newsapp.database.NewsDatabaseDao
 
+@Suppress("UNCHECKED_CAST")
 class NewsFavViewModelFactory(): ViewModelProvider.Factory  {
     private lateinit var database : NewsDatabaseDao
 

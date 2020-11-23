@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.newsapp.database.FavouriteNews
 import com.example.newsapp.newsNetwork.Articles
-
 object DiffCallback : DiffUtil.ItemCallback<Articles>() {
     override fun areItemsTheSame(oldItem: Articles, newItem: Articles): Boolean {
         return oldItem.title == newItem.title

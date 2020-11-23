@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/newsList2">
     <fragment
@@ -15,6 +16,12 @@
         <action
             android:id="@+id/action_newsList2_to_newsSearchFragment"
             app:destination="@id/newsSearchFragment" />
+        <action
+            android:id="@+id/action_newsList2_to_facebookLoginActivity"
+            app:destination="@id/facebookLoginActivity" />
+        <action
+            android:id="@+id/action_newsList2_to_userProfile"
+            app:destination="@id/userProfile" />
     </fragment>
     <fragment
         android:id="@+id/newsInfoFragment2"
@@ -25,7 +32,7 @@
     </fragment>
     <fragment
         android:id="@+id/newsFavFragment"
-        android:name="com.example.newsapp.newsFavorite.NewsFavFragment" >
+        android:name="com.example.newsapp.newsFavorite.NewsFavFragment">
         <action
             android:id="@+id/action_newsFavFragment_to_newsInfoFragment23"
             app:destination="@id/newsInfoFragment2"
@@ -33,9 +40,16 @@
     </fragment>
     <fragment
         android:id="@+id/newsSearchFragment"
-        android:name="com.example.newsapp.newsSearch.NewsSearchFragment" >
+        android:name="com.example.newsapp.newsSearch.NewsSearchFragment">
         <action
             android:id="@+id/action_newsSearchFragment_to_newsInfoFragment2"
             app:destination="@id/newsInfoFragment2" />
     </fragment>
+    <activity
+        android:id="@+id/facebookLoginActivity"
+        android:name="com.example.newsapp.authentication.LoginActivity"
+        tools:layout="@layout/activity_login" />
+    <fragment
+        android:id="@+id/userProfile"
+        android:name="com.example.newsapp.authentication.UserProfile" />
 </navigation>
