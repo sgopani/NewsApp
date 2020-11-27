@@ -1,19 +1,30 @@
 package com.example.newsapp
 
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
+import android.media.RingtoneManager
+import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-
+import androidx.core.app.NotificationCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.example.newsapp.authentication.LoginActivity
-import com.example.newsapp.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.FirebaseMessagingService
+import com.google.firebase.messaging.RemoteMessage
+
 class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration : AppBarConfiguration
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,6 +38,9 @@ class MainActivity : AppCompatActivity() {
         val navController=this.findNavController(R.id.myNavHostFragment)
         NavigationUI.setupActionBarWithNavController(this, navController)
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        //FirebaseMessaging.getInstance().isAutoInitEnabled=true
+        val token=FirebaseMessaging.getInstance().token
+        Log.i("Token ", token.toString())
         bottomNav.setupWithNavController(navController)
     }
 
@@ -53,206 +67,89 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-//package com.example.newsapp.authentication
+//class MyFirebaseMessagingService : FirebaseMessagingService() {
 //
-//import android.content.Intent
-//import android.os.Bundle
-//import android.util.Log
-//import android.view.LayoutInflater
-//import android.view.View
-//import android.view.ViewGroup
-//import android.widget.Button
-//import android.widget.TextView
-//import android.widget.Toast
-//import androidx.fragment.app.Fragment
-//import com.example.newsapp.R
-//import com.facebook.*
-//import com.facebook.FacebookSdk.getApplicationContext
-//import com.facebook.login.LoginResult
-//import com.facebook.login.widget.LoginButton
-//import com.google.android.gms.auth.api.signin.GoogleSignIn
-//import com.google.android.gms.auth.api.signin.GoogleSignInClient
-//import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-//import com.google.android.gms.common.SignInButton
-//import com.google.android.gms.common.api.ApiException
-//import com.google.firebase.auth.FacebookAuthProvider
-//import com.google.firebase.auth.FirebaseAuth
-//import com.google.firebase.auth.FirebaseUser
-//import com.google.firebase.auth.GoogleAuthProvider
-//import com.google.firebase.auth.ktx.auth
-//import com.google.firebase.ktx.Firebase
+//    private val TAG = "FireBaseMessagingService"
+//    var NOTIFICATION_CHANNEL_ID = "com.example.newsapp"
+//    val NOTIFICATION_ID = 100
 //
-//class Login():Fragment() {
-//    private lateinit var auth: FirebaseAuth
-//    // [END declare_auth]
-//    private lateinit var loginView: View
-//    private lateinit var googleSignInClient: GoogleSignInClient
-//    private lateinit var callbackManager: CallbackManager
-//    override fun onCreateView(
-//        inflater: LayoutInflater,
-//        container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
+//    override fun onMessageReceived(remoteMessage: RemoteMessage) {
+//        super.onMessageReceived(remoteMessage)
 //
+//        Log.e("message","Message Received ...");
 //
-//        //keytool -exportcert -alias androiddebugkey -keystore "C:\Users\Shubh\.android\debug.keystore" | "C:\Program Files\Java\jdk-15\bin\openssl" sha1 -binary | "C:\Program Files\Java\jdk-15\bin\bin\openssl" base64
-//        FacebookSdk.sdkInitialize(getApplicationContext())
-//        loginView=inflater.inflate(R.layout.login_fragment, container, false)
-//        activity?.title="Login"
-//
-//        val facebookSignInButton = loginView.findViewById<LoginButton>(R.id.facebook_sign_in_button)
-//        callbackManager = CallbackManager.Factory.create()
-////        facebookSignInButton.setOnClickListener {
-////            Toast.makeText(this.context,"Clicked",Toast.LENGTH_SHORT).show()
-////        }
-//        facebookSignInButton.setPermissions("email", "public_profile")
-//        facebookSignInButton.setOnClickListener {
-//            facebookSignInButton.registerCallback(callbackManager, object :
-//                FacebookCallback<LoginResult>{
-//                override fun onSuccess(result: LoginResult?) {
-//                    handleFacebookAccessToken(result!!.accessToken)
-//                    Log.i("Facebook Token","$result!!.accessToken")
-//                }
-//
-//                override fun onCancel() {
-//                    updateUI(null)
-//                }
-//
-//                override fun onError(error: FacebookException?) {
-//                    Log.i("Facebook Token","Error")
-//                    updateUI(null)
-//                }
-//            })
-//        }
-//
-//        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//            .requestIdToken(getString(R.string.default_web_client_id))
-//            .requestEmail()
-//            .build()
-//        googleSignInClient = GoogleSignIn.getClient(this.requireContext(), gso)
-//        auth = Firebase.auth
-//        return loginView
-//    }
-//    private fun handleFacebookAccessToken(token: AccessToken) {
-//        Log.d(TAG, "handleFacebookAccessToken:$token")
-//        // [START_EXCLUDE silent]
-//        //showProgressBar()
-//        // [END_EXCLUDE]
-//        val credential = FacebookAuthProvider.getCredential(token.token)
-//        auth.signInWithCredential(credential)
-//            .addOnCompleteListener(this.requireActivity()) { task ->
-//                if (task.isSuccessful) {
-//                    // Sign in success, update UI with the signed-in user's information
-//                    Log.d(TAG, "signInWithCredential:success")
-//                    val user = auth.currentUser
-//                    updateUI(user)
-//                } else {
-//                    // If sign in fails, display a message to the user.
-//                    Log.w(TAG, "signInWithCredential:failure", task.exception)
-//                    //Toast.makeText(baseContext, "Authentication failed.",
-//                    //  Toast.LENGTH_SHORT).show()
-//                    updateUI(null)
-//                }
-//
-//                // [START_EXCLUDE]
-//                //hideProgressBar()
-//                // [END_EXCLUDE]
-//            }
-//    }
-//    override fun onStart() {
-//        super.onStart()
-//        // Check if user is signed in (non-null) and update UI accordingly.
-//        val currentUser = auth.currentUser
-//        updateUI(currentUser)
-//    }
-//    private fun signIn() {
-//        val signInIntent = googleSignInClient.signInIntent
-//        startActivityForResult(signInIntent, RC_SIGN_IN)
-//    }
-//    private fun signOut() {
-//        // Firebase sign out
-//        auth.signOut()
-//        // Google sign out
-//        googleSignInClient.signOut().addOnCompleteListener(this.requireActivity()) {
-//            updateUI(null)
-//        }
-//    }
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        callbackManager.onActivityResult(requestCode, resultCode, data)
-//        super.onActivityResult(requestCode, resultCode, data)
-//        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-//        if (requestCode == Companion.RC_SIGN_IN) {
-//            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-//            try {
-//                // Google Sign In was successful, authenticate with Firebase
-//
-//                val account = task.getResult(ApiException::class.java)!!
-//                Log.d(TAG, "firebaseAuthWithGoogle:" + account.id)
-//                //Toast.makeText(this.context,"${account.idToken}",Toast.LENGTH_SHORT).show()
-//                firebaseAuthWithGoogle(account.idToken!!)
-//
-//            } catch (e: ApiException) {
-//                // Google Sign In failed, update UI appropriately
-//                Log.w(TAG, "Google sign in failed", e)
-//                // [START_EXCLUDE]
-//                updateUI(null)
-//                // [END_EXCLUDE]
-//            }
-//        }
-//    }
-//    private fun firebaseAuthWithGoogle(idToken: String) {
-//        // [START_EXCLUDE silent]
-//        //showProgressBar()
-//        // [END_EXCLUDE]
-//        val credential = GoogleAuthProvider.getCredential(idToken, null)
-//        auth.signInWithCredential(credential).addOnCompleteListener(this.requireActivity()) { task ->
-//            if (task.isSuccessful) {
-//                // Sign in success, update UI with the signed-in user's information
-//                Log.d(TAG, "signInWithCredential:success")
-//                val user = auth.currentUser
-//                updateUI(user)
-//            } else {
-//                // If sign in fails, display a message to the user.
-//                Log.w(TAG, "signInWithCredential:failure", task.exception)
-//                // [START_EXCLUDE]
-//                // [END_EXCLUDE]
-//                updateUI(null)
-//            }
-//
-//            // [START_EXCLUDE]
-//            //hideProgressBar()
-//            // [END_EXCLUDE]
-//        }
-//    }
-//    private fun updateUI(user: FirebaseUser?) {
-//        val signIn: SignInButton=loginView.findViewById(R.id.google_button)
-//        signIn.setOnClickListener {
-//            //Toast.makeText(this.context,"Clicked",Toast.LENGTH_SHORT).show()
-//            signIn()
-//        }
-//        val signOut:Button=loginView.findViewById(R.id.sign_out_button)
-//        signOut.setOnClickListener {
-//            signIn.visibility=View.VISIBLE
-//            Toast.makeText(this.context,"Signed out",Toast.LENGTH_SHORT).show()
-//            signOut()
-//        }
-//
-//        //hideProgressBar()
-//        if (user != null) {
-//            signIn.visibility=View.GONE
-//            signOut.visibility=View.VISIBLE
-////            val dispText = loginView.findViewById<View>(R.id.login_textView) as TextView
-////            dispText.text= user.email
-////            dispText.text=user.displayName
-//            Log.i("Token", user.uid)
+//        if (remoteMessage.data.isNotEmpty()) {
+//            val title = remoteMessage.data["title"]
+//            val body = remoteMessage.data["body"]
+//            showNotification(applicationContext, title, body)
 //        } else {
-//            signOut.visibility=View.GONE
-//            //Toast.makeText(this.context, "No user Loged  in", Toast.LENGTH_LONG).show()
+//            val title = remoteMessage.notification!!.title
+//            val body = remoteMessage.notification!!.body
+//            showNotification(applicationContext, title, body)
 //        }
 //    }
 //
-//    companion object {
-//        private const val TAG = "GoogleActivity"
-//        private const val RC_SIGN_IN = 9001
+//
+//    override fun onNewToken(p0: String) {
+//        super.onNewToken(p0)
+//        Log.e("token","New Token")
 //    }
+//
+//
+//    private fun showNotification(
+//        context: Context,
+//        title: String?,
+//        message: String?
+//    ) {
+//        val ii: Intent=Intent(context, MainActivity::class.java)
+//        ii.data = Uri.parse("custom://" + System.currentTimeMillis())
+//        ii.action = "actionstring" + System.currentTimeMillis()
+//        ii.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+//        val pi =
+//            PendingIntent.getActivity(context, 0, ii, PendingIntent.FLAG_UPDATE_CURRENT)
+//        val notification: Notification
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            //Log.e("Notification", "Created in up to orio OS device");
+//            notification = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
+//                .setOngoing(true)
+//                .setSmallIcon(getNotificationIcon())
+//                .setContentText(message)
+//                .setAutoCancel(true)
+//                .setContentIntent(pi)
+//                .setPriority(NotificationCompat.PRIORITY_HIGH)
+//                .setCategory(Notification.CATEGORY_SERVICE)
+//                .setWhen(System.currentTimeMillis())
+//                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+//                .setContentTitle(title).build()
+//            val notificationManager = context.getSystemService(
+//                Context.NOTIFICATION_SERVICE
+//            ) as NotificationManager
+//            val notificationChannel = NotificationChannel(
+//                NOTIFICATION_CHANNEL_ID,
+//                title,
+//                NotificationManager.IMPORTANCE_DEFAULT
+//            )
+//            notificationManager.createNotificationChannel(notificationChannel)
+//            notificationManager.notify(NOTIFICATION_ID, notification)
+//        } else {
+//            notification = NotificationCompat.Builder(context)
+//                .setSmallIcon(getNotificationIcon())
+//                .setAutoCancel(true)
+//                .setContentText(message)
+//                .setContentIntent(pi)
+//                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+//                .setContentTitle(title).build()
+//            val notificationManager = context.getSystemService(
+//                Context.NOTIFICATION_SERVICE
+//            ) as NotificationManager
+//            notificationManager.notify(NOTIFICATION_ID, notification)
+//        }
+//    }
+//
+//    private fun getNotificationIcon(): Int {
+//        val useWhiteIcon =
+//            Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
+//        return if (useWhiteIcon) R.mipmap.ic_launcher else R.mipmap.ic_launcher
+//    }
+//
 //}

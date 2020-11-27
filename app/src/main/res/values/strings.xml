@@ -45,4 +45,7 @@
     <string name="email_id_text">Email Id</string>
     <string name="login_page_image">Login_page_image</string>
     <string name="login_textview">Login</string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="default_notification_channel_name" translatable="true">Weather</string>
+
 </resources>
